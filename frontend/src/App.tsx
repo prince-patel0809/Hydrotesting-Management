@@ -66,6 +66,23 @@ export function App() {
     loadData()
   }, [loadData])
 
+  // Update browser document title dynamically per active tab
+  useEffect(() => {
+    switch (activeTab) {
+      case 'dashboard':
+        document.title = 'Dashboard | FuelFlux Hydrotesting'
+        break
+      case 'assets':
+        document.title = 'Asset Register | FuelFlux Hydrotesting'
+        break
+      case 'records':
+        document.title = 'Hydrotest Records | FuelFlux Hydrotesting'
+        break
+      default:
+        document.title = 'FuelFlux — Hydrotesting Management System'
+    }
+  }, [activeTab])
+
   // Asset Actions
   const handleCreateAsset = async (payload: AssetCreatePayload) => {
     const created = await api.createAsset(payload)
@@ -211,7 +228,7 @@ export function App() {
             <strong>FuelFlux Technology Private Limited</strong> — Hydrotesting Management & Inspection Workflow
           </div>
           <div>
-            API Documentation: <a href="http://127.0.0.1:8000/docs" target="_blank" rel="noreferrer" className="text-blue-600 hover:underline">Swagger UI (/docs)</a>
+            API Documentation: <a href="http://127.0.0.1:8000/docs" target="_blank" rel="noreferrer" className="text-orange-600 hover:underline">Swagger UI (/docs)</a>
           </div>
         </div>
       </footer>

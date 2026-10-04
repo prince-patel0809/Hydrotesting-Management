@@ -14,6 +14,17 @@ body {
   color: #0f172a;
 }
 
+button {
+  touch-action: manipulation;
+}
+
+@media (max-width: 640px) {
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
 /* Custom scrollbars */
 ::-webkit-scrollbar {
   width: 6px;

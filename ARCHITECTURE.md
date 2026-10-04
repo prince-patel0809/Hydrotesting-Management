@@ -8,19 +8,16 @@ Comprehensive technical architecture for the **FuelFlux Hydrotesting Management 
 
 The application follows a modular, 3-tier architecture:
 
-```
-[ React 19 + TypeScript Frontend (Vite) ]
-                  │
-                  ▼  (HTTP / JSON API)
-[ FastAPI Backend (Python Async) ]
-  ├── Routes Layer      (/api/hydrotests)
-  ├── Schemas Layer     (Pydantic v2 Request/Response Validation)
-  └── Services Layer    (AssetService, RecordService, SummaryService)
-                  │
-                  ▼
-[ Database Layer ]
-  ├── Motor (Async MongoDB Client)
-  └── mongomock-motor (Zero-setup in-memory fallback for local demo)
+```mermaid
+flowchart TD
+  USER[Candidate / demo user] --> UI[React + TypeScript UI]
+  UI -->|JSON over HTTP| ROUTES[FastAPI routes]
+  ROUTES --> SCHEMAS[Pydantic schemas]
+  SCHEMAS --> SERVICES[Service layer]
+  SERVICES --> DBACCESS[Database access]
+  DBACCESS --> MONGO[(MongoDB)]
+  DBACCESS -. optional local fallback .-> MOCK[(In-memory MongoDB mock)]
+  ROUTES --> DOCS[OpenAPI / Swagger at /docs]
 ```
 
 ---

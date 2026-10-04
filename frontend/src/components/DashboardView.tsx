@@ -34,7 +34,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   if (loading && !summary) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[50vh] text-slate-500">
-        <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+        <div className="w-10 h-10 border-4 border-orange-600 border-t-transparent rounded-full animate-spin mb-4"></div>
         <p className="font-medium">Loading hydrotesting compliance statistics...</p>
       </div>
     )
@@ -57,20 +57,25 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   return (
     <div className="space-y-8 pb-12">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 pb-5">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Hydrotesting Operational Dashboard
-          </h1>
+      <div className="flex min-w-0 flex-col sm:flex-row sm:items-start sm:justify-between gap-4 border-b border-slate-200 pb-5">
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-center gap-2">
+            <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight leading-tight">
+              Hydrotesting Operational Dashboard
+            </h1>
+            <span className="hidden sm:inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold bg-orange-100 text-orange-800 border border-orange-200">
+              Overview
+            </span>
+          </div>
           <p className="text-sm text-slate-500 mt-1">
-            Real-time compliance monitoring, pressure test tracking, and recertification deadlines.
+            Real-time compliance monitoring, hydrostatic pressure hold analytics, and equipment recertification deadlines across all terminal stations.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
           <button
             onClick={() => onOpenAddRecord()}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-semibold shadow-sm transition-colors"
+            className="inline-flex min-h-11 w-full sm:w-auto items-center justify-center gap-2 px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-sm font-semibold shadow-sm transition-colors"
           >
             <PlusCircle className="w-4 h-4" />
             <span>Record Hydrotest</span>
@@ -83,13 +88,13 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         {/* 1. Total Assets */}
         <div
           onClick={() => onNavigateToAssets()}
-          className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-blue-400 hover:shadow-md cursor-pointer transition-all flex flex-col justify-between"
+          className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-orange-400 hover:shadow-md cursor-pointer transition-all flex flex-col justify-between"
         >
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
               Total Assets
             </span>
-            <div className="p-2 rounded-lg bg-blue-50 text-blue-600">
+            <div className="p-2 rounded-lg bg-orange-50 text-orange-600">
               <Layers className="w-5 h-5" />
             </div>
           </div>
@@ -217,7 +222,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Upcoming Tests (Due within 30 days) */}
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
-          <div className="px-6 py-4 bg-amber-50/50 border-b border-amber-100 flex items-center justify-between">
+          <div className="px-4 sm:px-6 py-4 bg-amber-50/50 border-b border-amber-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <AlertTriangle className="w-5 h-5 text-amber-600" />
               <h2 className="text-base font-bold text-slate-900">
@@ -238,7 +243,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               upcomingTests.map((asset) => (
                 <div
                   key={asset.asset_id}
-                  className="p-4 hover:bg-slate-50 transition-colors flex items-center justify-between gap-4"
+                  className="p-4 hover:bg-slate-50 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                 >
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
@@ -265,7 +270,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
                   <button
                     onClick={() => onOpenAddRecord(asset.asset_id)}
-                    className="shrink-0 text-xs font-semibold px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 rounded-md transition-colors"
+                    className="min-h-11 w-full sm:w-auto shrink-0 text-xs font-semibold px-3 py-2 bg-orange-50 text-orange-700 hover:bg-orange-100 border border-orange-200 rounded-md transition-colors"
                   >
                     Log Test
                   </button>
@@ -277,7 +282,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
         {/* Overdue Tests */}
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
-          <div className="px-6 py-4 bg-red-50/50 border-b border-red-100 flex items-center justify-between">
+          <div className="px-4 sm:px-6 py-4 bg-red-50/50 border-b border-red-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <XCircle className="w-5 h-5 text-red-600" />
               <h2 className="text-base font-bold text-slate-900">
@@ -298,7 +303,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               overdueTests.map((asset) => (
                 <div
                   key={asset.asset_id}
-                  className="p-4 hover:bg-red-50/20 transition-colors flex items-center justify-between gap-4"
+                  className="p-4 hover:bg-red-50/20 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                 >
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
@@ -325,7 +330,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
                   <button
                     onClick={() => onOpenAddRecord(asset.asset_id)}
-                    className="shrink-0 text-xs font-semibold px-3 py-1.5 bg-red-600 text-white hover:bg-red-700 rounded-md shadow-sm transition-colors"
+                    className="min-h-11 w-full sm:w-auto shrink-0 text-xs font-semibold px-3 py-2 bg-red-600 text-white hover:bg-red-700 rounded-md shadow-sm transition-colors"
                   >
                     Retest Now
                   </button>
@@ -340,7 +345,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Failed Inspection Records */}
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
-          <div className="px-6 py-4 bg-rose-50/50 border-b border-rose-100 flex items-center justify-between">
+          <div className="px-4 sm:px-6 py-4 bg-rose-50/50 border-b border-rose-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <XCircle className="w-5 h-5 text-rose-600" />
               <h2 className="text-base font-bold text-slate-900">
@@ -391,7 +396,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
         {/* Pending Records */}
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
-          <div className="px-6 py-4 bg-amber-50/50 border-b border-amber-100 flex items-center justify-between">
+          <div className="px-4 sm:px-6 py-4 bg-amber-50/50 border-b border-amber-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <Clock className="w-5 h-5 text-amber-600" />
               <h2 className="text-base font-bold text-slate-900">

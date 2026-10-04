@@ -107,12 +107,3 @@ For detailed, human-readable documentation, see:
 3. **[API_DOCS.md](API_DOCS.md)** — Complete API contract, endpoints, and curl examples.
 4. **[TESTING.md](TESTING.md)** — Test suite details, test matrix, and verification commands.
 5. **[ASSUMPTIONS.md](ASSUMPTIONS.md)** — Business rules, duplicate handling, and security decisions.
-
----
-
-## 🎬 3–5 Minute Demo Walkthrough Script
-
-1. **Dashboard (1 min):** Open http://localhost:5173. Review the 6 KPI metric cards. Point out upcoming tests (&le; 30 days) and overdue tests.
-2. **Asset Management (1 min):** Go to Asset Register tab. Search for an asset (e.g. `Pipeline`), filter by station, and toggle sorting by next-due date. Click "Register New Asset" and demonstrate that next-due dates earlier than test dates are rejected.
-3. **Hydrotest Logging (1 min):** Click "Log Test" on an asset. Enter test details, select `Pass`, `Fail`, or `Pending`, enter notes, and submit. View the updated record in the Hydrotest Records tab.
-4. **API & Tests (1 min):** Open http://localhost:8000/docs to show the Swagger UI. Run `pytest` and `npm test` in the terminal to verify all tests pass.

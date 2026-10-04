@@ -51,11 +51,11 @@ export const ValidityBadge: React.FC<ValidityBadgeProps> = ({ category, daysUnti
   switch (category) {
     case 'Valid':
       return (
-        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
-          <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
+        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-orange-50 text-orange-700 border border-orange-200">
+          <ShieldCheck className="w-3.5 h-3.5 text-orange-600" />
           Valid
           {typeof daysUntilDue === 'number' && daysUntilDue > 0 && (
-            <span className="text-blue-500 font-normal">({daysUntilDue}d)</span>
+            <span className="text-orange-500 font-normal">({daysUntilDue}d)</span>
           )}
         </span>
       )
