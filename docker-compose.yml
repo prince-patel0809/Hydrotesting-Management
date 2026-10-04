@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  # 1. MongoDB Database Service
+  mongodb:
+    image: mongo:latest
+    container_name: fuelflux-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=fuelflux_hydrotesting
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - fuelflux-network
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'db.runCommand(\"ping\").ok' | mongosh localhost:27017/fuelflux_hydrotesting --quiet"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # 2. FastAPI Backend API Service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: fuelflux-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - PROJECT_NAME=FuelFlux Hydrotesting Management System
+      - ENVIRONMENT=production
+      - HOST=0.0.0.0
+      - PORT=8000
+      - MONGODB_URI=mongodb://mongodb:27017
+      - DATABASE_NAME=fuelflux_hydrotesting
+      - USE_IN_MEMORY_DB=false
+      - CORS_ORIGINS=http://localhost:5173,http://localhost:3000,http://127.0.0.1:5173,http://127.0.0.1:3000,http://localhost:80,http://localhost
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - fuelflux-network
+
+  # 3. React + Vite Frontend Service (Nginx SPA + Reverse Proxy)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: fuelflux-frontend
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    networks:
+      - fuelflux-network
+
+networks:
+  fuelflux-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+    driver: local
